@@ -14,6 +14,9 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddCors(options => options.AddPolicy("AllowWebapp",
                                     builder => builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod()));
 
+//Añadimos Automapper, config para usar inyeccion de dependencias
+builder.Services.AddAutoMapper(typeof(Program));
+
 //Añadimos context
 builder.Services.AddDbContext<AppDbContext>(options =>
 {
