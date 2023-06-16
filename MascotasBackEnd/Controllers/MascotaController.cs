@@ -77,5 +77,26 @@ namespace MascotasBackEnd.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        //Agregar mascota
+        [HttpPost]
+        public async Task<IActionResult> Post(Mascota mascota)
+        {
+            try
+            {
+                //obtenemos la fecha para el campo requerido de mascota
+                mascota.FechaCreacion = DateTime.Now;
+                //agregamos los datos obtenidos a mascota
+                _context.Add(mascota);
+                await _context.SaveChangesAsync();
+
+                //creamos la mascota
+                return CreatedAtAction("Get", new { id =  mascota.Id }, mascota);
+            }
+            catch(Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }
