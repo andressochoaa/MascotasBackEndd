@@ -91,9 +91,44 @@ namespace MascotasBackEnd.Controllers
                 await _context.SaveChangesAsync();
 
                 //creamos la mascota
-                return CreatedAtAction("Get", new { id =  mascota.Id }, mascota);
+                return CreatedAtAction("Get", new { id = mascota.Id }, mascota);
             }
-            catch(Exception ex)
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        //Editamos mascota
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Put(int id, Mascota mascota)
+        {
+            try
+            {
+                if(id != mascota.Id)
+                {
+                    return BadRequest();
+                }
+
+                //busca el id para editarlo
+                var mascotaItem = await _context.Mascotas.FindAsync(id);
+
+                //si no lo encuentra retorna 404
+                if (mascotaItem == null)
+                {
+                    return NotFound();
+                }
+
+                mascotaItem.Nombre = mascota.Nombre;
+                mascotaItem.Especie = mascota.Especie;
+                mascotaItem.Raza = mascota.Raza;
+                mascotaItem.FechaNacimiento = mascota.FechaNacimiento;
+                mascotaItem.IdDueno = mascota.IdDueno;
+
+                await _context.SaveChangesAsync();
+                return NoContent();
+            }
+            catch (Exception ex)
             {
                 return BadRequest(ex.Message);
             }
