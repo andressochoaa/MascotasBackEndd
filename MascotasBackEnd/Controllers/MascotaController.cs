@@ -41,11 +41,36 @@ namespace MascotasBackEnd.Controllers
             {
                 var mascota = await _context.Mascotas.FindAsync(id);
                 //si no existe el id, retorna el not found
-                if(mascota == null)
+                if (mascota == null)
                 {
                     return NotFound();
                 }
                 return Ok(mascota);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        // borrar mascota
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            try
+            {
+                //buscamos por el id
+                var mascota = await _context.Mascotas.FindAsync(id);
+                if (mascota == null)
+                {
+                    return NotFound();
+                }
+
+                //lo removemos
+                _context.Mascotas.Remove(mascota);
+                await _context.SaveChangesAsync();
+
+                return NoContent();
             }
             catch (Exception ex)
             {
