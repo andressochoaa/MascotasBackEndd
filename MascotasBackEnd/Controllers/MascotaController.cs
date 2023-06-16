@@ -18,7 +18,7 @@ namespace MascotasBackEnd.Controllers
             _context = context;
         }
 
-        //peticion get
+        //peticion get lista mascotas
         [HttpGet]
         public async Task<IActionResult> Get()
         {
@@ -29,6 +29,26 @@ namespace MascotasBackEnd.Controllers
                 return Ok(listMascotas);
             }
             catch (Exception ex) {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        //peticion get por id de mascota
+        [HttpGet("{id}")]
+        public async Task<IActionResult> Get(int id)
+        {
+            try
+            {
+                var mascota = await _context.Mascotas.FindAsync(id);
+                //si no existe el id, retorna el not found
+                if(mascota == null)
+                {
+                    return NotFound();
+                }
+                return Ok(mascota);
+            }
+            catch (Exception ex)
+            {
                 return BadRequest(ex.Message);
             }
         }
