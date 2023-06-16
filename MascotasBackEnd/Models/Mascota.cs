@@ -4,7 +4,7 @@
     {
         public int Id { get; set; }
         public string Nombre { get; set; }
-        public int Raza { get; set; }
+        public string Raza { get; set; }
 
         public string Especie { get; set; }
 
