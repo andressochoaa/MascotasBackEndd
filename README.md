@@ -1,6 +1,6 @@
 # MascotasBackEnd
 
-Utilizacion de EntityFrameworkCore, EntityFrameworkCore.tools, EntityFrameworkCore.SqlServer
+Utilizacion de EntityFrameworkCore, EntityFrameworkCore.tools, EntityFrameworkCore.SqlServer, Automapper.DependencyInjection
 
 Para la migracion de la bdd a sql server:
 en appsettings.json:
